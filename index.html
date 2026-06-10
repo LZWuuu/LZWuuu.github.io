@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ziwu Liu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f4f3ee;
+    --fg: #111111;
+    --gray: #555555;
+    --rule-thick: 3px;
+    --rule-thin: 1px;
+    --font-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+    --max-w: 960px;
+    --gutter: 24px;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--fg); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  /* ── NAV ── */
+  nav {
+    border-bottom: var(--rule-thin) solid var(--fg);
+    padding: 18px 0;
+  }
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .nav-left { display: flex; align-items: baseline; gap: 28px; }
+  .nav-logo {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  /* ── LANG TOGGLE ── */
+  .lang-toggle {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    border: var(--rule-thin) solid var(--fg);
+    cursor: pointer;
+    user-select: none;
+  }
+  .lang-toggle span {
+    padding: 4px 10px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .lang-toggle span.active {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .lang-toggle span:not(.active):hover {
+    background: #ddd;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 48px 0 0; }
+
+  .section-rule-top {
+    border-top: var(--rule-thick) solid var(--fg);
+    padding-top: 16px;
+  }
+
+  .section-title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 20px;
+  }
+
+  hr {
+    border: none;
+    border-top: var(--rule-thin) solid var(--fg);
+    margin: 0;
+  }
+  hr.thick { border-top-width: var(--rule-thick); }
+
+  /* ── HERO ── */
+  .hero-box {
+    border: var(--rule-thick) solid var(--fg);
+    padding: 32px 28px;
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 0;
+  }
+  .hero-content { min-width: 0; }
+  .hero-content h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 18px;
+  }
+  .hero-content .bio {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 640px;
+  }
+  .hero-content .bio strong { font-weight: 600; }
+
+  .hero-ascii {
+    border-left: var(--rule-thin) solid var(--fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 24px;
+    min-height: 200px;
+  }
+  #ascii-canvas {
+    font-family: var(--font-mono);
+    font-size: 5.5px;
+    line-height: 1.05;
+    white-space: pre;
+    color: var(--fg);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-meta-row {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: var(--rule-thin) solid var(--fg);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--gray);
+    letter-spacing: 0.02em;
+    flex-wrap: wrap;
+  }
+
+  /* ── RESEARCH LIST ── */
+  .research-list { list-style: none; }
+  .research-item {
+    padding: 20px 0;
+    border-bottom: var(--rule-thin) solid var(--fg);
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .research-item:first-child {
+    border-top: var(--rule-thin) solid var(--fg);
+  }
+  .research-idx {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--gray);
+    padding-top: 2px;
+  }
+  .research-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .research-desc {
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* ── DIGITAL GARDEN ── */
+  .garden-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: var(--rule-thin) solid var(--fg);
+  }
+  .garden-cell {
+    padding: 20px 20px 20px 0;
+    border-bottom: var(--rule-thin) solid var(--fg);
+  }
+  .garden-cell:nth-child(even) {
+    padding-left: 20px;
+    padding-right: 0;
+    border-left: var(--rule-thin) solid var(--fg);
+  }
+  .garden-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 8px;
+  }
+  .garden-text {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 64px;
+    border-top: var(--rule-thick) solid var(--fg);
+    padding: 20px 0 40px;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--gray);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── I18N ── */
+  [data-i18n-en], [data-i18n-zh] { display: none; }
+  [data-lang="en"] [data-i18n-en] { display: inline; }
+  [data-lang="en"] div[data-i18n-en],
+  [data-lang="en"] p[data-i18n-en],
+  [data-lang="en"] li[data-i18n-en],
+  [data-lang="en"] h1[data-i18n-en],
+  [data-lang="en"] span[data-i18n-en] { display: inline; }
+  [data-lang="zh"] [data-i18n-zh] { display: inline; }
+  [data-lang="zh"] div[data-i18n-zh],
+  [data-lang="zh"] p[data-i18n-zh],
+  [data-lang="zh"] li[data-i18n-zh],
+  [data-lang="zh"] h1[data-i18n-zh],
+  [data-lang="zh"] span[data-i18n-zh] { display: inline; }
+  /* block-level overrides */
+  [data-lang="en"] div[data-i18n-en] { display: block; }
+  [data-lang="zh"] div[data-i18n-zh] { display: block; }
+  [data-lang="en"] p[data-i18n-en] { display: block; }
+  [data-lang="zh"] p[data-i18n-zh] { display: block; }
+  [data-lang="en"] li[data-i18n-en] { display: grid; }
+  [data-lang="zh"] li[data-i18n-zh] { display: grid; }
+  [data-lang="en"] h1[data-i18n-en] { display: block; }
+  [data-lang="zh"] h1[data-i18n-zh] { display: block; }
+  /* flex overrides */
+  [data-lang="en"] .hero-meta-row[data-i18n-en] { display: flex; }
+  [data-lang="zh"] .hero-meta-row[data-i18n-zh] { display: flex; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    :root { --gutter: 16px; }
+
+    .hero-box {
+      grid-template-columns: 1fr;
+      padding: 24px 20px;
+    }
+    .hero-content h1 { font-size: 1.35rem; }
+    .hero-ascii {
+      border-left: none;
+      border-top: var(--rule-thin) solid var(--fg);
+      padding-left: 0;
+      padding-top: 20px;
+      min-height: 160px;
+    }
+    #ascii-canvas { font-size: 4.5px; }
+
+    .research-item {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    [data-lang="en"] li[data-i18n-en],
+    [data-lang="zh"] li[data-i18n-zh] { display: block; }
+    .research-idx { display: none; }
+
+    .garden-grid { grid-template-columns: 1fr; }
+    .garden-cell:nth-child(even) {
+      padding-left: 0;
+      border-left: none;
+    }
+
+    .nav-left { gap: 16px; }
+    .nav-links { gap: 16px; }
+  }
+</style>
+</head>
+<body data-lang="en">
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-left">
+      <a href="/" class="nav-logo">Ziwu Liu</a>
+      <div class="nav-links">
+        <a href="#research">
+          <span data-i18n-en>Research</span><span data-i18n-zh>研究</span>
+        </a>
+        <a href="#garden">
+          <span data-i18n-en>Notes</span><span data-i18n-zh>笔记</span>
+        </a>
+        <a href="#garden">
+          <span data-i18n-en>Life</span><span data-i18n-zh>生活</span>
+        </a>
+        <a href="#about">
+          <span data-i18n-en>About</span><span data-i18n-zh>关于</span>
+        </a>
+      </div>
+    </div>
+    <div class="lang-toggle" id="langToggle" role="button" aria-label="Switch language" tabindex="0">
+      <span id="langEn" class="active">EN</span>
+      <span id="langZh">中</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="about">
+  <div class="container">
+    <div class="section-rule-top">
+      <p class="section-title">
+        <span data-i18n-en>About</span><span data-i18n-zh>关于</span>
+      </p>
+    </div>
+    <div class="hero-box">
+      <div class="hero-content">
+        <h1 data-i18n-en>Hello, I'm Ziwu.</h1>
+        <h1 data-i18n-zh>你好，我是子午。</h1>
+        <p class="bio" data-i18n-en>
+          <strong>PhD Researcher at KAUST</strong> &mdash; working at the intersection of large language model optimization, inference frameworks, and representational geometry. I build systems that make LLMs faster and study the internal structure of what they learn.
+        </p>
+        <p class="bio" data-i18n-zh>
+          <strong>KAUST 博士研究员</strong> &mdash; 研究方向涵盖大语言模型优化、推理框架与表征几何。构建加速 LLM 的系统，研究模型内部学到的结构。
+        </p>
+      </div>
+      <div class="hero-ascii">
+        <div id="ascii-canvas" aria-hidden="true"></div>
+      </div>
+      <div class="hero-meta-row" data-i18n-en>
+        <span>KAUST, Saudi Arabia</span>
+        <span>LLM Optimization</span>
+        <span>Inference Systems</span>
+        <span>Representational Geometry</span>
+      </div>
+      <div class="hero-meta-row" data-i18n-zh>
+        <span>KAUST，沙特阿拉伯</span>
+        <span>LLM 优化</span>
+        <span>推理系统</span>
+        <span>表征几何</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="section-rule-top">
+      <p class="section-title">
+        <span data-i18n-en>Recent Research &amp; Engineering</span>
+        <span data-i18n-zh>近期研究与工程</span>
+      </p>
+    </div>
+    <ol class="research-list">
+      <!-- EN items -->
+      <li class="research-item" data-i18n-en>
+        <span class="research-idx">001</span>
+        <div>
+          <p class="research-title">LAG Framework Evolution</p>
+          <p class="research-desc">Implementing single-stage teacher-force training pipeline. Redesigning the training loop to unify distillation and generation in one forward pass, reducing both wall-clock time and memory overhead.</p>
+        </div>
+      </li>
+      <li class="research-item" data-i18n-en>
+        <span class="research-idx">002</span>
+        <div>
+          <p class="research-title">HPC Workarounds</p>
+          <p class="research-desc">Redirecting DeepSpeed Triton autotune cache directories to non-NFS paths on the Ibex cluster. Diagnosing lock contention and I/O bottlenecks caused by shared filesystem caching in distributed training jobs.</p>
+        </div>
+      </li>
+      <li class="research-item" data-i18n-en>
+        <span class="research-idx">003</span>
+        <div>
+          <p class="research-title">LLM Architecture Analysis</p>
+          <p class="research-desc">Analyzing the impact of different <code style="font-family:var(--font-mono);font-size:0.82rem;background:#e0dfda;padding:1px 5px;">lm_head</code> structures within the same model family on hidden state transfer. Investigating how projection layer variations affect knowledge distillation fidelity.</p>
+        </div>
+      </li>
+      <!-- ZH items -->
+      <li class="research-item" data-i18n-zh>
+        <span class="research-idx">001</span>
+        <div>
+          <p class="research-title">LAG 框架演进</p>
+          <p class="research-desc">实现单阶段 teacher-force 训练流水线。重新设计训练循环，在一次前向传播中统一蒸馏与生成，降低训练时间与显存开销。</p>
+        </div>
+      </li>
+      <li class="research-item" data-i18n-zh>
+        <span class="research-idx">002</span>
+        <div>
+          <p class="research-title">HPC 环境适配</p>
+          <p class="research-desc">将 DeepSpeed Triton 自动调优缓存目录重定向至 Ibex 集群上的非 NFS 路径。诊断分布式训练作业中共享文件系统缓存导致的锁竞争与 I/O 瓶颈。</p>
+        </div>
+      </li>
+      <li class="research-item" data-i18n-zh>
+        <span class="research-idx">003</span>
+        <div>
+          <p class="research-title">LLM 架构分析</p>
+          <p class="research-desc">分析同一模型家族中不同 <code style="font-family:var(--font-mono);font-size:0.82rem;background:#e0dfda;padding:1px 5px;">lm_head</code> 结构对隐藏状态迁移的影响。研究投影层变体如何影响知识蒸馏的保真度。</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- DIGITAL GARDEN -->
+<section id="garden">
+  <div class="container">
+    <div class="section-rule-top">
+      <p class="section-title">
+        <span data-i18n-en>Digital Garden</span>
+        <span data-i18n-zh>数字花园</span>
+      </p>
+    </div>
+    <div class="garden-grid">
+      <div class="garden-cell">
+        <p class="garden-tag">
+          <span data-i18n-en>Media / Criticism</span>
+          <span data-i18n-zh>影视 / 评论</span>
+        </p>
+        <p class="garden-text">
+          <span data-i18n-en>Structural Parallels in <em>Mawaru Penguindrum</em> and the works of Kunihiko Ikuhara.</span>
+          <span data-i18n-zh>《回转企鹅罐》与几原邦彦作品中的结构性平行。</span>
+        </p>
+      </div>
+      <div class="garden-cell">
+        <p class="garden-tag">
+          <span data-i18n-en>Hardware / Horology</span>
+          <span data-i18n-zh>硬件 / 钟表</span>
+        </p>
+        <p class="garden-text">
+          <span data-i18n-en>Hardware Tear-down: Internal structure of Citizen B620 and Cal.0100 movements.</span>
+          <span data-i18n-zh>硬件拆解：西铁城 B620 与 Cal.0100 机芯的内部结构。</span>
+        </p>
+      </div>
+      <div class="garden-cell">
+        <p class="garden-tag">
+          <span data-i18n-en>Fitness / Recovery</span>
+          <span data-i18n-zh>健身 / 恢复</span>
+        </p>
+        <p class="garden-text">
+          <span data-i18n-en>HIIT recovery metrics &amp; managing muscle soreness across training cycles.</span>
+          <span data-i18n-zh>HIIT 恢复指标与训练周期中的肌肉酸痛管理。</span>
+        </p>
+      </div>
+      <div class="garden-cell">
+        <p class="garden-tag">
+          <span data-i18n-en>Life / Companion</span>
+          <span data-i18n-zh>生活 / 伙伴</span>
+        </p>
+        <p class="garden-text">
+          <span data-i18n-en>Fostering Fullah: Daily routine with a Samusky &mdash; walks, enrichment, and co-working.</span>
+          <span data-i18n-zh>寄养 Fullah：与萨摩耶哈士奇混血的日常 &mdash; 散步、丰容与共同工作。</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span>&copy; 2026 Ziwu Liu</span>
+      <span>
+        <span data-i18n-en>Built with nothing but HTML &amp; CSS</span>
+        <span data-i18n-zh>仅用 HTML 与 CSS 构建</span>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Language Toggle ──
+(function() {
+  const body = document.body;
+  const btnEn = document.getElementById('langEn');
+  const btnZh = document.getElementById('langZh');
+  const toggle = document.getElementById('langToggle');
+
+  function setLang(lang) {
+    body.setAttribute('data-lang', lang);
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    btnEn.classList.toggle('active', lang === 'en');
+    btnZh.classList.toggle('active', lang === 'zh');
+    try { localStorage.setItem('lang', lang); } catch(e) {}
+  }
+
+  toggle.addEventListener('click', function(e) {
+    const current = body.getAttribute('data-lang');
+    setLang(current === 'en' ? 'zh' : 'en');
+  });
+  toggle.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle.click(); }
+  });
+
+  // restore
+  try {
+    const saved = localStorage.getItem('lang');
+    if (saved === 'zh') setLang('zh');
+  } catch(e) {}
+})();
+
+// ── ASCII Rotating Hyperbolic Paraboloid (Chip) ──
+(function() {
+  const canvas = document.getElementById('ascii-canvas');
+  if (!canvas) return;
+
+  // Shading ramp: space → light → dense (interior fill)
+  const shade = ' .`\':,-~;!=+*?%&#@';
+  const EDGE = '@';
+
+  const W = 72;
+  const H = 48;
+  const gridN = 220;
+
+  // Light from upper-left, almost frontal
+  const lx = -0.45, ly = 0.55, lz = 0.70;
+
+  let angle = 0;
+
+  // Matrix multiply helper: apply 3x3 rotation to [x,y,z]
+  function rotX(p, c, s) { return [p[0], p[1]*c - p[2]*s, p[1]*s + p[2]*c]; }
+  function rotY(p, c, s) { return [p[0]*c + p[2]*s, p[1], -p[0]*s + p[2]*c]; }
+  function rotZ(p, c, s) { return [p[0]*c - p[1]*s, p[0]*s + p[1]*c, p[2]]; }
+
+  function render() {
+    const zBuf  = new Float64Array(W * H).fill(-1e9);
+    const brBuf = new Float64Array(W * H).fill(0);
+    const flag  = new Uint8Array(W * H).fill(0);
+
+    // Spin around Y axis (vertical axis — like a turntable)
+    const cosA = Math.cos(angle);
+    const sinA = Math.sin(angle);
+
+    // Camera: near eye-level, looking slightly down
+    // Elevation ~15°, then a slight lean for the 3/4 feel
+    const elev = 0.26;  // ~15° above horizon
+    const cosE = Math.cos(elev);
+    const sinE = Math.sin(elev);
+    // Slight lean around Z for asymmetry like the photo
+    const lean = 0.12;
+    const cosL = Math.cos(lean);
+    const sinL = Math.sin(lean);
+
+    for (let i = 0; i < gridN; i++) {
+      for (let j = 0; j < gridN; j++) {
+        const u = (i / (gridN - 1) - 0.5) * 2.2;
+        const v = (j / (gridN - 1) - 0.5) * 2.2;
+
+        // Circular domain → chip/Pringle shape
+        const r2 = u * u + v * v;
+        if (r2 > 1.0) continue;
+        const r = Math.sqrt(r2);
+
+        // Saddle surface z = (x² - y²) with strong curvature
+        const sx = u, sy = v;
+        const sz = (u * u - v * v) * 0.65;
+
+        // 1. Spin around Y (turntable rotation)
+        let p = rotY([sx, sz, sy], cosA, sinA);
+        // p is now [x, z_up, depth]
+
+        // Normal: partials of z=0.65(u²-v²)
+        // T_u = (1, 0, 1.3u), T_v = (0, 1, -1.3v)
+        // N = cross(T_u, T_v) = (-1.3u, 1.3v, 1)
+        const kk = 1.3;
+        let nn = [-kk * u, kk * v, 1];
+        const nmag = Math.sqrt(nn[0]*nn[0] + nn[1]*nn[1] + nn[2]*nn[2]);
+        nn = [nn[0]/nmag, nn[1]/nmag, nn[2]/nmag];
+
+        // Rotate normal same way: swap y/z then rotY
+        nn = rotY([nn[0], nn[2], nn[1]], cosA, sinA);
+
+        // 2. Tilt camera: rotate around X to look down
+        p = rotX(p, cosE, sinE);
+        nn = rotX(nn, cosE, sinE);
+
+        // 3. Slight Z lean
+        p = rotZ(p, cosL, sinL);
+        nn = rotZ(nn, cosL, sinL);
+
+        // Screen coords (orthographic)
+        const scale = 15;
+        const aspectY = 0.48; // char aspect ratio correction
+        const px = Math.round(p[0] * scale + W / 2);
+        const py = Math.round(-p[1] * scale * aspectY + H / 2 + 2);
+        const depth = p[2];
+
+        // Lambertian shading (two-sided)
+        let dot = nn[0]*lx + nn[1]*ly + nn[2]*lz;
+        // Use two-sided lighting but preserve directionality
+        let brightness = 0.06 + 0.94 * Math.abs(dot);
+        // Darken the back-facing side slightly for depth
+        if (dot < 0) brightness *= 0.7;
+        brightness = Math.max(0, Math.min(1, brightness));
+
+        if (px >= 0 && px < W && py >= 0 && py < H) {
+          const idx = py * W + px;
+          if (depth > zBuf[idx]) {
+            zBuf[idx] = depth;
+            brBuf[idx] = brightness;
+            flag[idx] = (r > 0.90) ? 2 : 1;
+          }
+        }
+      }
+    }
+
+    // Edge detection: silhouette + rim + z-discontinuity
+    const edgeBuf = new Uint8Array(W * H);
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        const idx = y * W + x;
+        if (flag[idx] === 0) continue;
+
+        // Rim edge (domain boundary)
+        if (flag[idx] === 2) { edgeBuf[idx] = 1; continue; }
+
+        // Silhouette: surface pixel next to empty pixel
+        let isSil = false;
+        for (const [dx, dy] of [[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]) {
+          const nx2 = x + dx, ny2 = y + dy;
+          if (nx2 < 0 || nx2 >= W || ny2 < 0 || ny2 >= H) { isSil = true; break; }
+          if (flag[ny2 * W + nx2] === 0) { isSil = true; break; }
+        }
+        if (isSil) edgeBuf[idx] = 1;
+      }
+    }
+
+    // Build output string
+    let out = '';
+    for (let y = 0; y < H; y++) {
+      let line = '';
+      for (let x = 0; x < W; x++) {
+        const idx = y * W + x;
+        if (flag[idx] === 0) {
+          line += ' ';
+        } else if (edgeBuf[idx]) {
+          line += EDGE;
+        } else {
+          const ci = Math.floor(brBuf[idx] * (shade.length - 1));
+          line += shade[ci];
+        }
+      }
+      out += line;
+      if (y < H - 1) out += '\n';
+    }
+    canvas.textContent = out;
+
+    angle += 0.018;
+    requestAnimationFrame(render);
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    angle = 0.6;
+    render();
+  } else {
+    render();
+  }
+})();
+</script>
+
+</body>
+</html>
